@@ -1,5 +1,7 @@
 package com.lumis.TesteApi.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +19,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	}
 	
 	
-	@Override
-	public Usuario findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Usuario find(Long id) {
@@ -29,11 +27,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 		return null;
 	}
 
-	@Override
-	public Usuario create() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 	@Override
 	public Usuario update() {
@@ -45,6 +39,18 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public void delete() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Usuario> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Usuario create(Usuario usuario) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }
