@@ -43,7 +43,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public List<Usuario> findAll() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

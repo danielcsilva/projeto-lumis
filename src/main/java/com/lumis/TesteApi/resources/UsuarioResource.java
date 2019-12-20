@@ -5,10 +5,12 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,16 +19,21 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lumis.TesteApi.models.Usuario;
+import com.lumis.TesteApi.services.CargoService;
 import com.lumis.TesteApi.services.UsuarioService;
 
 @RestController
-@RequestMapping("/usuario")
+@RequestMapping("/cargo/{idcargo}/usuario")
 public class UsuarioResource {
 
+	@Autowired
 	private UsuarioService usuarioService;
+	@Autowired
+	private CargoService cargoService;
 	
-	public  UsuarioResource(UsuarioService usuarioService) {
+	public  UsuarioResource(UsuarioService usuarioService, CargoService cargoService) {
 		this.usuarioService = usuarioService;
+		this.cargoService = cargoService;
 	}
 	
 	
@@ -44,7 +51,7 @@ public class UsuarioResource {
 	@PostMapping(produces = "application/json")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<?> create(@Valid @RequestBody Usuario usuario, Errors errors){
+	public ResponseEntity<?> create(@PathVariable("cargoId") @Valid @RequestBody Usuario usuario, Errors errors){
 		if(!errors.hasErrors()) {
 			
 			Usuario usuarioCriado = this.usuarioService.create(usuario);
