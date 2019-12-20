@@ -15,8 +15,9 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.beans.factory.annotation.Required;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.sun.istack.NotNull;
 
 
@@ -50,24 +51,28 @@ public class Usuario {
 	private Date dtNascimento;
 	
 	@ManyToOne
+	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name = "idcargo")
 	private Cargo idcargo;
 
 	@ManyToOne
+	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name = "idperfil")
 	private Perfil idperfil;
 	
 	@Column
 	private boolean status;
 
-	public Usuario(Long id, String nome, String cpf, String sexo, Date dtNascimento, Cargo cargo, Perfil perfil, boolean status) {
+	public Usuario(Long id, String nome, String cpf, String sexo, Date dtNascimento, Cargo idcargo, Perfil idperfil, boolean status) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.sexo = sexo;
 		this.dtNascimento = dtNascimento;
-		this.idcargo = cargo;
-		this.idperfil = perfil;
+		this.idcargo = idcargo;
+		this.idperfil = idperfil;
 		this.status = status;
 	}
 

@@ -1,5 +1,8 @@
 package com.lumis.TesteApi.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.lumis.TesteApi.models.Perfil;
@@ -15,21 +18,18 @@ public class PerfilServiceImp implements PerfilService {
 	}
 
 	@Override
-	public Perfil findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Perfil> findAll() {
+		return this.perfilRepository.findAll();
 	}
 
 	@Override
-	public Perfil find(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	public Optional<Perfil> find(Long id) {
+		return this.perfilRepository.findById(id);
 	}
 
 	@Override
-	public Perfil create() {
-		// TODO Auto-generated method stub
-		return null;
+	public Perfil create(Perfil perfil) {
+		return this.perfilRepository.save(perfil);
 	}
 
 	@Override
@@ -43,7 +43,5 @@ public class PerfilServiceImp implements PerfilService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 	
 }

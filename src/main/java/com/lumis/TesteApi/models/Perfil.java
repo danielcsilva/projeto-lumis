@@ -11,6 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "perfil")
 public class Perfil {
@@ -25,6 +29,7 @@ public class Perfil {
 	
 	@Column
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idperfil")
+	@JsonIgnore
 	private Set<Usuario> usuario;
 	
 	public Perfil() {

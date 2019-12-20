@@ -1,7 +1,6 @@
 package com.lumis.TesteApi.resources;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -14,32 +13,33 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.lumis.TesteApi.models.Cargo;
+import com.lumis.TesteApi.models.Perfil;
 import com.lumis.TesteApi.models.Usuario;
-import com.lumis.TesteApi.services.CargoService;
 import com.lumis.TesteApi.services.UsuarioService;
 
 @RestController
-@RequestMapping("/cargo/{idcargo}/usuario")
+@RequestMapping("/usuario")
 public class UsuarioResource {
 
 	@Autowired
 	private UsuarioService usuarioService;
-	@Autowired
-	private CargoService cargoService;
 	
-	public  UsuarioResource(UsuarioService usuarioService, CargoService cargoService) {
+	public  UsuarioResource(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
-		this.cargoService = cargoService;
 	}
 	
 	
+	
+	@SuppressWarnings("rawtypes")
 	@GetMapping(produces = "application/json")
 	@ResponseBody
-	public ResponseEntity<?> findAll(Error error){
+	public ResponseEntity<?> findAll(){
 		
 		List<Usuario> list = this.usuarioService.findAll();
 			
@@ -48,24 +48,25 @@ public class UsuarioResource {
 	}
 	
 	
-	@PostMapping(produces = "application/json")
+	@PostMapping(path =  "/save/perfil/{idperfil}/cargo/{idcargo}",produces = "application/json")
 	@ResponseBody
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ResponseEntity<?> create(@PathVariable("cargoId") @Valid @RequestBody Usuario usuario, Errors errors){
-		if(!errors.hasErrors()) {
-			
-			Usuario usuarioCriado = this.usuarioService.create(usuario);
-			
-			return new ResponseEntity<Usuario>(usuarioCriado,HttpStatus.CREATED);
-		}
+	public ResponseEntity<?>  create(@PathVariable("idperfil") Long idPerfil ,@PathVariable("idcargo") Long idcargo ,@Valid @RequestBody Usuario usuario, Errors errors){
 		
-		return ResponseEntity
-				.badRequest()
-				.body(errors
-						.getAllErrors()
-						.stream()
-						.map(msg -> msg.getDefaultMessage())
-						.collect(Collectors.joining(",")));
+		Perfil perfil = new Perfil();
+		
+		perfil.setIdPerfil(idPerfil);
+		
+		usuario.setIdperfil(perfil);
+		
+		Cargo cargo = new Cargo();
+		
+		cargo.setIdCargo(idcargo);
+		
+		usuario.setIdcargo(cargo);
+		
+		return this.usuarioService.create(usuario, errors);
+		
 	}
 	
 	
