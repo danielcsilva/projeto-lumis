@@ -1,15 +1,18 @@
 package com.lumis.TesteApi.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import com.lumis.TesteApi.models.Perfil;
 
 public interface PerfilService {
 	
 	
-	public Perfil findAll();
+	public List<Perfil> findAll();
 	
-	public Perfil find(Long id);
+	public Optional<Perfil> find(Long id);
 	
-	public Perfil create();
+	public Perfil create(Perfil perfil);
 	
 	public Perfil delete(Long id);
 	

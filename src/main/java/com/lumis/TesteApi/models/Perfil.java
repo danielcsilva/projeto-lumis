@@ -1,11 +1,19 @@
 package com.lumis.TesteApi.models;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "perfil")
@@ -17,8 +25,12 @@ public class Perfil {
 	private Long idPerfil;
 	
 	@Column
-	private String tipoPerfil;	
+	private String tipoPerfil;
 	
+	@Column
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "idperfil")
+	@JsonIgnore
+	private Set<Usuario> usuario;
 	
 	public Perfil() {
 		
@@ -45,7 +57,13 @@ public class Perfil {
 	public void setTipoPerfil(String tipoPerfil) {
 		this.tipoPerfil = tipoPerfil;
 	}
-	
-	
-	
+
+	public Set<Usuario> getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Set<Usuario> usuario) {
+		this.usuario = usuario;
+	}
+		
 }

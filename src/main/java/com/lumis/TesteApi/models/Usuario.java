@@ -10,6 +10,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.br.CPF;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.sun.istack.NotNull;
 
 
 @Entity
@@ -21,36 +30,49 @@ public class Usuario {
 	private Long id;
 	
 	@Column
+	@NotBlank(message = "Não pode ser vázio")
+	@NotEmpty(message = "Não pode ser vario")
+	@Size(min=1, max=255)
 	private String nome;
 	
 	@Column
+	@CPF(message = "Favor informar um CPF válido")
+	@NotBlank(message = "Não pode ser vázio")
+	@NotEmpty(message = "Não pode ser vario")
+	@Size(min=11, max=11, message = "O CPF deve ter 11 caracteres")
 	private String cpf;
 	
 	@Column
+	@NotBlank(message = "Não pode ser vázio")
+	@NotEmpty(message = "Não pode ser vario")
 	private String sexo;
 	
 	@Column
 	private Date dtNascimento;
 	
 	@ManyToOne
+	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name = "idcargo")
-	private Cargo cargo;
+	private Cargo idcargo;
 
 	@ManyToOne
+	@JsonIgnore
+	@JsonManagedReference
 	@JoinColumn(name = "idperfil")
-	private Perfil perfil;
+	private Perfil idperfil;
 	
 	@Column
 	private boolean status;
 
-	public Usuario(Long id, String nome, String cpf, String sexo, Date dtNascimento, Cargo cargo, Perfil perfil, boolean status) {
+	public Usuario(Long id, String nome, String cpf, String sexo, Date dtNascimento, Cargo idcargo, Perfil idperfil, boolean status) {
 		this.id = id;
 		this.nome = nome;
 		this.cpf = cpf;
 		this.sexo = sexo;
 		this.dtNascimento = dtNascimento;
-		this.cargo = cargo;
-		this.perfil = perfil;
+		this.idcargo = idcargo;
+		this.idperfil = idperfil;
 		this.status = status;
 	}
 
@@ -97,20 +119,23 @@ public class Usuario {
 		this.dtNascimento = dtNascimento;
 	}
 
-	public Cargo getCargo() {
-		return cargo;
+
+	public Cargo getIdcargo() {
+		return idcargo;
 	}
 
-	public void setCargo(Cargo cargo) {
-		this.cargo = cargo;
+	public void setIdcargo(Cargo idcargo) {
+		this.idcargo = idcargo;
 	}
 
-	public Perfil getPerfil() {
-		return perfil;
+
+
+	public Perfil getIdperfil() {
+		return idperfil;
 	}
 
-	public void setPerfil(Perfil perfil) {
-		this.perfil = perfil;
+	public void setIdperfil(Perfil idperfil) {
+		this.idperfil = idperfil;
 	}
 
 	public boolean isStatus() {
