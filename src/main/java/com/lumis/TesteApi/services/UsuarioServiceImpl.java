@@ -1,6 +1,5 @@
 package com.lumis.TesteApi.services;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,7 +29,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 		this.usuarioRepository = usuarioRepositoy;
 	}
 	
-	
 
 	@Override
 	public Usuario find(Long id) {
@@ -41,15 +39,40 @@ public class UsuarioServiceImpl implements UsuarioService {
 	
 
 	@Override
-	public Usuario update() {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<?> update(Long id, Usuario usuario, Errors errors) {
+		
+		if(!errors.hasErrors()) {
+					
+					this.usuarioRepository.findById(id).map(record -> {
+						
+						record.setCpf(usuario.getCpf());
+						record.setDtNascimento(usuario.getDtNascimento());
+						record.setSexo(usuario.getSexo());
+						record.setNome(usuario.getNome());
+						record.setStatus(usuario.isStatus());
+						record.setIdperfil(usuario.getIdperfil());
+						record.setIdcargo(usuario.getIdcargo());
+						Usuario usuarioUpdate = this.usuarioRepository.save(record);
+						
+						return new ResponseEntity<Usuario>(usuarioUpdate, HttpStatus.OK);
+					
+					});
+					
+				}
+				
+				return ResponseEntity
+						.badRequest()
+						.body(errors
+								.getAllErrors()
+								.stream()
+								.map(msg -> msg.getDefaultMessage())
+								.collect(Collectors.joining(",")));
+		
 	}
 
 	@Override
-	public void delete() {
-		// TODO Auto-generated method stub
-		
+	public void delete(Long id) {
+		this.usuarioRepository.deleteById(id);
 	}
 
 	@Override
@@ -75,7 +98,6 @@ public class UsuarioServiceImpl implements UsuarioService {
 						.map(msg -> msg.getDefaultMessage())
 						.collect(Collectors.joining(",")));
 	}
-
 
 
 	@Override

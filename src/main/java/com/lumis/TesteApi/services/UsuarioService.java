@@ -14,11 +14,11 @@ public interface UsuarioService {
 	
 	public Usuario find(Long id);
 	
-	public ResponseEntity<?> create(Usuario usuario, Errors erros);
+	public ResponseEntity<?> create(Usuario usuario, Errors errors);
 	
-	public Usuario update();
+	public ResponseEntity<?> update(Long id, Usuario usuario, Errors errors);
 	
-	public void delete();
+	public void delete(Long id);
 
 	List<Usuario> findByAllParam(String nome, String cpf, String sexo, Date dtnascimento, Boolean status);
 	

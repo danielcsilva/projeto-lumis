@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.lumis.TesteApi.models.Cargo;
-import com.lumis.TesteApi.models.Perfil;
 import com.lumis.TesteApi.models.Usuario;
 
 @Repository
