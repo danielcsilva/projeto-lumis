@@ -1,5 +1,7 @@
 package com.lumis.TesteApi.resources;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -13,7 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +37,6 @@ public class UsuarioResource {
 	}
 	
 	
-	
 	@SuppressWarnings("rawtypes")
 	@GetMapping(produces = "application/json")
 	@ResponseBody
@@ -46,6 +47,24 @@ public class UsuarioResource {
 		return new ResponseEntity<List>(list,HttpStatus.OK);
 		
 	}
+	
+	
+	@GetMapping(path = "/allparam",produces = "application/json")
+	@ResponseBody
+	public ResponseEntity<?> findByParam(
+			@RequestParam(value = "nome", required = false) String nome,
+			@RequestParam(value = "cpf", required = false) String cpf,
+			@RequestParam(value = "sexo", required = false) String sexo,
+			@RequestParam(value = "dtnascimento", required = false) Date dtnascimento,
+			@RequestParam(value = "status", required = false) Boolean status
+			){
+		
+		List<Usuario> list = this.usuarioService.findByAllParam(nome, cpf, sexo, dtnascimento, status);
+		
+		return new ResponseEntity<List>(list,HttpStatus.OK);
+		
+	}
+	
 	
 	
 	@PostMapping(path =  "/save/perfil/{idperfil}/cargo/{idcargo}",produces = "application/json")

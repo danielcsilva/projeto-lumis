@@ -1,5 +1,6 @@
 package com.lumis.TesteApi.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -18,5 +19,7 @@ public interface UsuarioService {
 	public Usuario update();
 	
 	public void delete();
+
+	List<Usuario> findByAllParam(String nome, String cpf, String sexo, Date dtnascimento, Boolean status);
 	
 }
