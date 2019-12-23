@@ -1,12 +1,12 @@
 package com.lumis.TesteApi.resources;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -36,7 +35,6 @@ public class UsuarioResource {
 	public  UsuarioResource(UsuarioService usuarioService) {
 		this.usuarioService = usuarioService;
 	}
-	
 	
 	
 	@SuppressWarnings("rawtypes")
@@ -61,11 +59,13 @@ public class UsuarioResource {
 			@RequestParam(value = "status", required = false) Boolean status
 			){
 		
-		List<Usuario> list = this.usuarioService.findByNomeCpf(nome, cpf, sexo, dtnascimento, status);
+		List<Usuario> list = this.usuarioService.findByAllParam(nome, cpf, sexo, dtnascimento, status);
 		
 		return new ResponseEntity<List>(list,HttpStatus.OK);
 		
 	}
+	
+	
 	
 	@PostMapping(path =  "/save/perfil/{idperfil}/cargo/{idcargo}",produces = "application/json")
 	@ResponseBody

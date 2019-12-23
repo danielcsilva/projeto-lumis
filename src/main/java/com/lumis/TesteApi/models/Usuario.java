@@ -1,5 +1,9 @@
 package com.lumis.TesteApi.models;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -10,6 +14,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
@@ -18,7 +25,6 @@ import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.sun.istack.NotNull;
 
 
 @Entity
@@ -47,8 +53,9 @@ public class Usuario {
 	@NotEmpty(message = "Não pode ser vario")
 	private String sexo;
 	
-	@Column
+	@Column(name = "dt_nascimento", columnDefinition = "DATETIME")
 	private Date dtNascimento;
+
 	
 	@ManyToOne
 	@JsonIgnore
@@ -78,6 +85,7 @@ public class Usuario {
 
 	public Usuario() {
 	}
+
 
 	public Long getId() {
 		return id;

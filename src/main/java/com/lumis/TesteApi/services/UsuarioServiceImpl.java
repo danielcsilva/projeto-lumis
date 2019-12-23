@@ -1,5 +1,6 @@
 package com.lumis.TesteApi.services;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 
-import com.lumis.TesteApi.models.Cargo;
-import com.lumis.TesteApi.models.Perfil;
 import com.lumis.TesteApi.models.Usuario;
 import com.lumis.TesteApi.repository.UsuarioRepository;
 
@@ -80,8 +79,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 
 	@Override
-	public List<Usuario> findByNomeCpf(String nome, String cpf, String sexo, Date dtnascimento, Boolean status) {
-		return this.usuarioRepository.findByNomeOrCpfOrSexoOrDtNascimentoOrStatus(nome,cpf,sexo,dtnascimento,status);
+	public List<Usuario> findByAllParam(String nome, String cpf, String sexo, Date dtnascimento, Boolean status) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
+
+
+
+
 }

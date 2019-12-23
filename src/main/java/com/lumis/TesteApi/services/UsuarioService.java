@@ -19,8 +19,7 @@ public interface UsuarioService {
 	public Usuario update();
 	
 	public void delete();
-	
 
-	List<Usuario> findByNomeCpf(String nome, String cpf, String sexo, Date dtnascimento, Boolean status);
+	List<Usuario> findByAllParam(String nome, String cpf, String sexo, Date dtnascimento, Boolean status);
 	
 }
